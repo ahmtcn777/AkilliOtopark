@@ -1,7 +1,7 @@
 import javafx.scene.control.Button;
 import java.sql.SQLException;
 
-public class ParkYeri extends DatabaseManage{
+public class ParkYeri extends DbParkYeri {
     private String parkAdi;
     private int durum;
     private Button btn;
@@ -20,17 +20,16 @@ public class ParkYeri extends DatabaseManage{
 
     private void init(String parkAdi) throws SQLException, ClassNotFoundException {
         int parkDurumu;
-        parkDurumu = durumCek("SELECT durum FROM parkyerleri WHERE parkyeri="+parkAdi);
+        parkDurumu = durumCek("SELECT durum FROM parkyerleri WHERE parkyeri="+parkAdi,"durum");
         if(parkDurumu == 0){
             this.setDurum(0);
-            this.btn.setText("BOŞ");
+            //this.btn.setText("BOŞ");
             this.btn.setStyle("-fx-background-color:#00FF00;");
         }
         else {
             this.setDurum(1);
-            this.btn.setText("DOLU");
+            //this.btn.setText("DOLU");
             this.btn.setStyle("-fx-background-color:#FF0000");
-
         }
     }
 
@@ -46,9 +45,11 @@ public class ParkYeri extends DatabaseManage{
         return durum;
     }
 
+
     public void setParkAdi(String parkAdi) {
         this.parkAdi = parkAdi;
     }
+
 
     public void setDurum(int durum) {
         this.durum = durum;
@@ -57,6 +58,7 @@ public class ParkYeri extends DatabaseManage{
     public void setBtn(Button btn) {
         this.btn = btn;
     }
+
 
     public void durumDegistir() throws SQLException, ClassNotFoundException {
         if(this.getDurum() == 0){
@@ -70,5 +72,4 @@ public class ParkYeri extends DatabaseManage{
             this.init(this.getParkAdi());
         }
     }
-
 }

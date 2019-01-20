@@ -1,7 +1,7 @@
 import java.sql.*;
 
 
-public class DatabaseManage {
+public class DbParkYeri {
     static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
     static final String DB_URL = "jdbc:mariadb://localhost/akilliotopark";
 
@@ -20,7 +20,7 @@ public class DatabaseManage {
         connection.close();
     }
 
-    public int durumCek(String sql) throws SQLException, ClassNotFoundException {
+    public int durumCek(String sql,String sutun) throws SQLException, ClassNotFoundException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -31,7 +31,7 @@ public class DatabaseManage {
         resultSet = statement.executeQuery(sql);
         int durum = 0;
         while (resultSet.next()){
-            durum = resultSet.getInt("durum");
+            durum = resultSet.getInt(sutun);
         }
 
         statement.close();
